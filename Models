@@ -1,0 +1,12 @@
+# Machine Learning Models
+
+This folder will contain the trained fraud detection model and related model documentation.
+
+Planned approach:
+
+- Isolation Forest
+- Model evaluation
+- Fraud detection threshold
+- Model serialization
+
+The trained model will later be integrated into the real-time Spark streaming pipeline.
