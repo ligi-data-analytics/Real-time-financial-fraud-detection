@@ -1,0 +1,16 @@
+# Monitoring
+
+This folder will contain monitoring and dashboard configuration.
+
+Planned monitoring tools:
+
+- Grafana
+- Prometheus
+
+Key metrics:
+
+- Transaction throughput
+- Fraud alert count
+- Processing latency
+- Fraud detection rate
+- System performance
