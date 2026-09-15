@@ -1,0 +1,13 @@
+# Spark Streaming
+
+This module will contain the Apache Spark Structured Streaming application.
+
+The Spark pipeline will:
+
+1. Consume transactions from Kafka.
+2. Parse incoming transaction data.
+3. Apply feature transformations.
+4. Load the trained fraud detection model.
+5. Score transactions in real time.
+6. Identify potentially fraudulent transactions.
+7. Send fraud alerts to the database.
