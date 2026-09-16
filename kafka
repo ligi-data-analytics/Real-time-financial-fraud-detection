@@ -1,0 +1,35 @@
+# Kafka Transaction Producer
+
+This module is responsible for simulating real-time financial transactions using the PaySim dataset.
+
+## Objective
+
+The Python producer will read historical transactions and publish them continuously to an Apache Kafka topic.
+
+## Data Flow
+
+PaySim Dataset
+      ↓
+Python Producer
+      ↓
+Apache Kafka
+      ↓
+Spark Structured Streaming
+      ↓
+Fraud Detection Model
+      ↓
+Fraud Alerts
+
+## Planned Responsibilities
+
+- Read PaySim transaction data.
+- Select transaction records for streaming.
+- Convert transactions into messages.
+- Publish messages to a Kafka topic.
+- Simulate continuous transaction activity.
+
+## Technology
+
+- Python
+- Apache Kafka
+- PaySim Dataset
