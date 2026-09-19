@@ -48,5 +48,40 @@ The following preprocessing techniques were applied:
 * Used a stratified train/test split to preserve the fraud ratio.
 
 ### Key EDA Observation
+The dataset is highly imbalanced, with fraud transactions representing only 3.59% of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
+## Project Structure
+
+```text
+Real-time-financial-fraud-detection/
+│
+├── notebooks/
+│   └── 01_EDA.ipynb
+│
+├── docs/
+│   └── model_evaluation.md
+│
+├── light.png
+├── requirements.txt
+└── README.md
+```
+
+### Current Project Status
+
+* [x] Dataset exploration and data quality analysis
+* [x] Data preprocessing and feature engineering
+* [x] Logistic Regression baseline
+* [x] LightGBM fraud detection model
+* [x] Model evaluation and comparison
+* [x] Threshold analysis
+* [x] Feature importance analysis
+* [x] GitHub project documentation
+
+### Next Development Phase
+
+The next phase will focus on improving the fraud detection pipeline through additional feature engineering, model tuning, prediction workflows, and production-oriented components.
+
+```
+```
+
 
 The dataset is highly imbalanced, with fraud transactions representing only **3.59%** of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
