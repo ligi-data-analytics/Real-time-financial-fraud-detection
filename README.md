@@ -82,6 +82,43 @@ The next phase will focus on improving the fraud detection pipeline through addi
 
 ```
 ```
+## Model Results
+
+Two classification models were evaluated:
+
+* **Logistic Regression** — baseline model
+* **LightGBM** — tree-based model
+
+| Model               | Accuracy | Precision | Recall | F1 Score | ROC-AUC | PR-AUC |
+| ------------------- | -------: | --------: | -----: | -------: | ------: | -----: |
+| Logistic Regression |   28.90% |     4.37% | 90.09% |   0.0834 |  0.5925 | 0.0438 |
+| LightGBM            |   23.15% |     4.38% | 97.82% |   0.0838 |  0.5943 | 0.0441 |
+
+### Feature Importance
+
+The LightGBM model identified the following features among the most important:
+
+* `spending_deviation_score`
+* `amount`
+* `time_since_last_transaction`
+* `geo_anomaly_score`
+* `hour`
+* `velocity_score`
+* `sender_account_frequency`
+* `receiver_account_frequency`
+
+![LightGBM Feature Importance](light.png)
+
+### Model Comparison
+
+![Fraud Detection Model Comparison](model_comparison.png)
+
+### Interpretation
+
+The models achieved high recall but relatively low precision. This reflects the highly imbalanced nature of the fraud dataset and the large number of false-positive predictions.
+
+The current results establish a baseline for further improvements through feature engineering, model tuning, threshold optimization, and production-oriented prediction workflows.
+
 
 
 The dataset is highly imbalanced, with fraud transactions representing only **3.59%** of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
