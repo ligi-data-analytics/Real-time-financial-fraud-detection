@@ -1,0 +1,11 @@
+transaction_id actual prediction  fraud_probability
+0        T107720  Fraud      Fraud              55.02
+1        T114513  Fraud      Fraud              55.43
+2        T121111  Fraud      Fraud              55.85
+3        T124247  Fraud      Fraud              55.14
+4        T124325  Fraud      Fraud              55.42
+5        T124520  Fraud      Fraud              54.45
+6        T125405  Fraud      Fraud              55.14
+7        T125440  Fraud      Fraud              55.85
+8        T125491  Fraud      Fraud              55.51
+9        T125541  Fraud      Fraud              56.02
