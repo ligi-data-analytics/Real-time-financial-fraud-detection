@@ -122,3 +122,8 @@ The current results establish a baseline for further improvements through featur
 
 
 The dataset is highly imbalanced, with fraud transactions representing only **3.59%** of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
+{
+  "transaction_id": "T107720",
+  "prediction": "Fraud",
+  "fraud_probability": 55.02
+}
