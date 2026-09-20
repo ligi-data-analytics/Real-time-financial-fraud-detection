@@ -5,3 +5,7 @@ lightgbm
 matplotlib
 seaborn
 jupyter
+fastapi
+uvicorn
+pydantic
+joblib
