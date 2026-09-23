@@ -81,7 +81,61 @@ Real-time-financial-fraud-detection/
 The next phase will focus on improving the fraud detection pipeline through additional feature engineering, model tuning, prediction workflows, and production-oriented components.
 
 ```
+```## 🚀 FastAPI & Docker Deployment
+
+The trained fraud detection model has been integrated into a **FastAPI REST API** for real-time transaction fraud prediction.
+
+### FastAPI Features
+
+* Real-time fraud prediction using the trained LightGBM model
+* Transaction-level prediction endpoint
+* Fraud probability output
+* Automatic feature preprocessing
+* API health-check endpoint
+* Pydantic-based request validation
+
+### API Endpoints
+
+| Endpoint   | Method | Description                                 |
+| ---------- | ------ | ------------------------------------------- |
+| `/`        | GET    | Check API status                            |
+| `/predict` | POST   | Predict whether a transaction is fraudulent |
+
+### Docker
+
+The application has been containerized using **Docker** for consistent deployment.
+
+Main Docker files:
+
+* `Dockerfile` – Docker image configuration
+* `.dockerignore` – Files excluded from Docker build
+* `requirements.txt` – Python dependencies
+* `app.py` – FastAPI application
+
+### Model
+
+The fraud detection model is built using **LightGBM** and is loaded by the FastAPI application for prediction.
+
+> Note: `preprocessing_mappings.pkl` is not included in the GitHub repository because of its large file size. It is required by the API for preprocessing categorical and frequency-based features.
+
+### Project Workflow
+
+```text
+Raw Transaction Data
+        ↓
+Data Cleaning & EDA
+        ↓
+Feature Engineering
+        ↓
+LightGBM Fraud Detection Model
+        ↓
+Model Evaluation
+        ↓
+FastAPI REST API
+        ↓
+Docker Containerization
 ```
+
 ## Model Results
 
 Two classification models were evaluated:
@@ -127,3 +181,57 @@ The dataset is highly imbalanced, with fraud transactions representing only **3.
   "prediction": "Fraud",
   "fraud_probability": 55.02
 }
+## 🚀 FastAPI & Docker Deployment
+
+The trained fraud detection model has been integrated into a **FastAPI REST API** for real-time transaction fraud prediction.
+
+### FastAPI Features
+
+* Real-time fraud prediction using the trained LightGBM model
+* Transaction-level prediction endpoint
+* Fraud probability output
+* Automatic feature preprocessing
+* API health-check endpoint
+* Pydantic-based request validation
+
+### API Endpoints
+
+| Endpoint   | Method | Description                                 |
+| ---------- | ------ | ------------------------------------------- |
+| `/`        | GET    | Check API status                            |
+| `/predict` | POST   | Predict whether a transaction is fraudulent |
+
+### Docker
+
+The application has been containerized using **Docker** for consistent deployment.
+
+Main Docker files:
+
+* `Dockerfile` – Docker image configuration
+* `.dockerignore` – Files excluded from Docker build
+* `requirements.txt` – Python dependencies
+* `app.py` – FastAPI application
+
+### Model
+
+The fraud detection model is built using **LightGBM** and is loaded by the FastAPI application for prediction.
+
+> Note: `preprocessing_mappings.pkl` is not included in the GitHub repository because of its large file size. It is required by the API for preprocessing categorical and frequency-based features.
+
+### Project Workflow
+
+```text
+Raw Transaction Data
+        ↓
+Data Cleaning & EDA
+        ↓
+Feature Engineering
+        ↓
+LightGBM Fraud Detection Model
+        ↓
+Model Evaluation
+        ↓
+FastAPI REST API
+        ↓
+Docker Containerization
+```
