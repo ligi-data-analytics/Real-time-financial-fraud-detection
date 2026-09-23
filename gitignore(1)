@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+.env
+*.log
+
+api_test_results.csv
+
+preprocessing_mappings.pkl
