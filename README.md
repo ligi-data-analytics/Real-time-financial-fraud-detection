@@ -233,5 +233,25 @@ Model Evaluation
         ↓
 FastAPI REST API
         ↓
+
+### API Testing
+
+The FastAPI application was successfully started using Uvicorn in the project environment.
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+The application successfully completed startup and loaded the trained LightGBM model and preprocessing mappings.
+
+### Deployment Status
+
+* FastAPI application: ✅ Completed
+* Uvicorn server setup: ✅ Completed
+* Dockerfile: ✅ Completed
+* Docker configuration files: ✅ Completed
+* GitHub project files: ✅ Updated
+* Cloud deployment: ⏳ Next stage
+
 Docker Containerization
 ```
