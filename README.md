@@ -1,257 +1,299 @@
-# Real-time-financial-fraud-detection
-Real-time financial fraud detection pipeline using Kafka, Spark Structured Streaming, machine learning, and NoSQL for anomaly detection and fraud alerting.
-## Exploratory Data Analysis (EDA)
+# 💳 Real-Time Financial Fraud Detection
 
-The financial fraud detection dataset contains **5,000,000 transactions** with **18 columns** covering transaction details, customer accounts, device information, location, payment channels, and fraud indicators.
+A machine learning-based financial fraud detection project developed to identify potentially fraudulent transactions using **LightGBM**, with a **FastAPI REST API** for transaction-level prediction and **Docker** configuration for deployment.
 
-### Dataset Overview
+> **Current implementation:** Machine Learning + FastAPI + Docker
+> **Future enhancement:** Kafka + Spark Structured Streaming for real-time transaction processing.
 
-* **Total transactions:** 5,000,000
-* **Total columns:** 18
-* **Duplicate rows:** 0
-* **Duplicate transaction IDs:** 0
-* **Fraud transactions:** 179,553 (3.59%)
-* **Non-fraud transactions:** 4,820,447 (96.41%)
+---
 
-### Data Quality Findings
+## 📌 Project Overview
 
-The dataset contains missing values in two important columns:
+Financial fraud detection is an important application of machine learning where the objective is to identify suspicious transactions while minimizing missed fraudulent transactions.
 
-| Column                        | Missing Values | Percentage |
-| ----------------------------- | -------------: | ---------: |
-| `fraud_type`                  |      4,820,447 |     96.41% |
-| `time_since_last_transaction` |        896,513 |     17.93% |
+This project uses a large-scale financial transaction dataset containing **5 million records** to build a fraud detection model.
 
-The `fraud_type` column was excluded from modeling because it is highly correlated with the target and would introduce target leakage.
+The project covers:
 
-### Transaction Time Analysis
+* Data exploration and cleaning
+* Feature engineering
+* Fraud pattern analysis
+* Machine learning model development
+* Fraud probability prediction
+* REST API development using FastAPI
+* Docker containerization
+* GitHub-based project documentation
 
-The original `timestamp` column was converted into useful time-based features:
+---
 
-* Hour
-* Day of week
-* Month
-* Weekend indicator
+## 📊 Dataset
 
-Three invalid timestamp values were identified and handled during preprocessing.
+The dataset contains approximately **5 million financial transactions** and includes transaction, customer, device, location, payment and fraud-related information.
 
-### Data Preprocessing
+### Dataset characteristics
 
-The following preprocessing techniques were applied:
+* **Rows:** 5,000,000
+* **Features:** 18 original features
+* **Target:** `is_fraud`
+* **Fraud transactions:** ~3.59%
+* **Non-fraud transactions:** ~96.41%
 
-* Removed `transaction_id` from model features.
-* Converted invalid negative values in `time_since_last_transaction` to missing values.
-* Created missing-value and invalid-value indicators.
-* Median-imputed valid missing time values.
-* Applied frequency encoding to high-cardinality account, IP, and device fields.
-* Applied one-hot encoding to categorical variables.
-* Used a stratified train/test split to preserve the fraud ratio.
+The dataset is highly imbalanced, which makes fraud detection and false-negative reduction important considerations during model development.
 
-### Key EDA Observation
-The dataset is highly imbalanced, with fraud transactions representing only 3.59% of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
-## Project Structure
+---
 
-```text
-Real-time-financial-fraud-detection/
-│
-├── notebooks/
-│   └── 01_EDA.ipynb
-│
-├── docs/
-│   └── model_evaluation.md
-│
-├── light.png
-├── requirements.txt
-└── README.md
-```
+## 🔍 Exploratory Data Analysis
 
-### Current Project Status
+The project includes analysis of:
 
-* [x] Dataset exploration and data quality analysis
-* [x] Data preprocessing and feature engineering
-* [x] Logistic Regression baseline
-* [x] LightGBM fraud detection model
-* [x] Model evaluation and comparison
-* [x] Threshold analysis
-* [x] Feature importance analysis
-* [x] GitHub project documentation
+* Fraud vs. non-fraud transaction distribution
+* Transaction amounts
+* Transaction types
+* Merchant categories
+* Payment channels
+* Device and location information
+* Transaction timing
+* Fraud-related behavioral patterns
 
-### Next Development Phase
+---
 
-The next phase will focus on improving the fraud detection pipeline through additional feature engineering, model tuning, prediction workflows, and production-oriented components.
+## 🛠️ Data Preprocessing & Feature Engineering
 
-```
-```## 🚀 FastAPI & Docker Deployment
+The preprocessing workflow includes:
 
-The trained fraud detection model has been integrated into a **FastAPI REST API** for real-time transaction fraud prediction.
+* Handling missing values
+* Handling invalid transaction timestamps
+* Handling invalid/negative transaction intervals
+* Encoding categorical variables
+* Frequency-based encoding for selected high-cardinality features
+* Timestamp feature extraction
 
-### FastAPI Features
+### Created time-based features
 
-* Real-time fraud prediction using the trained LightGBM model
-* Transaction-level prediction endpoint
-* Fraud probability output
-* Automatic feature preprocessing
-* API health-check endpoint
-* Pydantic-based request validation
-
-### API Endpoints
-
-| Endpoint   | Method | Description                                 |
-| ---------- | ------ | ------------------------------------------- |
-| `/`        | GET    | Check API status                            |
-| `/predict` | POST   | Predict whether a transaction is fraudulent |
-
-### Docker
-
-The application has been containerized using **Docker** for consistent deployment.
-
-Main Docker files:
-
-* `Dockerfile` – Docker image configuration
-* `.dockerignore` – Files excluded from Docker build
-* `requirements.txt` – Python dependencies
-* `app.py` – FastAPI application
-
-### Model
-
-The fraud detection model is built using **LightGBM** and is loaded by the FastAPI application for prediction.
-
-> Note: `preprocessing_mappings.pkl` is not included in the GitHub repository because of its large file size. It is required by the API for preprocessing categorical and frequency-based features.
-
-### Project Workflow
-
-```text
-Raw Transaction Data
-        ↓
-Data Cleaning & EDA
-        ↓
-Feature Engineering
-        ↓
-LightGBM Fraud Detection Model
-        ↓
-Model Evaluation
-        ↓
-FastAPI REST API
-        ↓
-Docker Containerization
-```
-
-## Model Results
-
-Two classification models were evaluated:
-
-* **Logistic Regression** — baseline model
-* **LightGBM** — tree-based model
-
-| Model               | Accuracy | Precision | Recall | F1 Score | ROC-AUC | PR-AUC |
-| ------------------- | -------: | --------: | -----: | -------: | ------: | -----: |
-| Logistic Regression |   28.90% |     4.37% | 90.09% |   0.0834 |  0.5925 | 0.0438 |
-| LightGBM            |   23.15% |     4.38% | 97.82% |   0.0838 |  0.5943 | 0.0441 |
-
-### Feature Importance
-
-The LightGBM model identified the following features among the most important:
-
-* `spending_deviation_score`
-* `amount`
-* `time_since_last_transaction`
-* `geo_anomaly_score`
 * `hour`
-* `velocity_score`
-* `sender_account_frequency`
-* `receiver_account_frequency`
+* `day_of_week`
+* `month`
+* `is_weekend`
 
-![LightGBM Feature Importance](light.png)
+These features help the model identify transaction behavior patterns associated with fraudulent activity.
 
-### Model Comparison
+---
 
-![Fraud Detection Model Comparison](model_comparison.png)
+## 🤖 Machine Learning Model
 
-### Interpretation
+### LightGBM
 
-The models achieved high recall but relatively low precision. This reflects the highly imbalanced nature of the fraud dataset and the large number of false-positive predictions.
+The final fraud detection model was developed using **LightGBM**, a gradient boosting framework suitable for large tabular datasets.
 
-The current results establish a baseline for further improvements through feature engineering, model tuning, threshold optimization, and production-oriented prediction workflows.
+The trained model is saved as:
 
+```text
+fraud_detection_lgbm_model.pkl
+```
 
+The model produces:
 
-The dataset is highly imbalanced, with fraud transactions representing only **3.59%** of all transactions. Therefore, accuracy alone is not sufficient for evaluating fraud detection models. Precision, recall, F1-score, ROC-AUC, and PR-AUC are also considered.
-{
-  "transaction_id": "T107720",
-  "prediction": "Fraud",
-  "fraud_probability": 55.02
-}
-## 🚀 FastAPI & Docker Deployment
+* Fraud / Non-Fraud prediction
+* Fraud probability
 
-The trained fraud detection model has been integrated into a **FastAPI REST API** for real-time transaction fraud prediction.
+Example:
 
-### FastAPI Features
+```text
+Transaction ID: T107720
+Prediction: Fraud
+Fraud Probability: 55.02%
+```
 
-* Real-time fraud prediction using the trained LightGBM model
-* Transaction-level prediction endpoint
-* Fraud probability output
-* Automatic feature preprocessing
-* API health-check endpoint
-* Pydantic-based request validation
+---
+
+## 🚀 FastAPI REST API
+
+The trained model was integrated into a **FastAPI REST API** to allow transaction-level fraud prediction.
 
 ### API Endpoints
 
-| Endpoint   | Method | Description                                 |
-| ---------- | ------ | ------------------------------------------- |
-| `/`        | GET    | Check API status                            |
-| `/predict` | POST   | Predict whether a transaction is fraudulent |
+| Endpoint   | Method | Description               |
+| ---------- | ------ | ------------------------- |
+| `/`        | GET    | API health/status check   |
+| `/predict` | POST   | Predict transaction fraud |
 
-### Docker
-
-The application has been containerized using **Docker** for consistent deployment.
-
-Main Docker files:
-
-* `Dockerfile` – Docker image configuration
-* `.dockerignore` – Files excluded from Docker build
-* `requirements.txt` – Python dependencies
-* `app.py` – FastAPI application
-
-### Model
-
-The fraud detection model is built using **LightGBM** and is loaded by the FastAPI application for prediction.
-
-> Note: `preprocessing_mappings.pkl` is not included in the GitHub repository because of its large file size. It is required by the API for preprocessing categorical and frequency-based features.
-
-### Project Workflow
+### API Workflow
 
 ```text
-Raw Transaction Data
-        ↓
-Data Cleaning & EDA
-        ↓
-Feature Engineering
-        ↓
-LightGBM Fraud Detection Model
-        ↓
-Model Evaluation
-        ↓
-FastAPI REST API
-        ↓
+Transaction Input
+       ↓
+FastAPI Request Validation
+       ↓
+Feature Preprocessing
+       ↓
+LightGBM Model
+       ↓
+Fraud Prediction
+       ↓
+Fraud Probability
+```
 
-### API Testing
+The API uses **Pydantic** for request validation and automatically performs the required feature preprocessing before generating predictions.
 
-The FastAPI application was successfully started using Uvicorn in the project environment.
+---
+
+## 🐳 Docker
+
+The application has been prepared for containerized deployment using Docker.
+
+### Docker configuration
+
+```text
+Dockerfile
+requirements.txt
+app.py
+fraud_detection_lgbm_model.pkl
+preprocessing_mappings.pkl
+```
+
+The Docker container is configured to run the FastAPI application using Uvicorn on port `8000`.
+
+Example command:
 
 ```bash
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-The application successfully completed startup and loaded the trained LightGBM model and preprocessing mappings.
+---
 
-### Deployment Status
+## 📁 Project Structure
 
-* FastAPI application: ✅ Completed
-* Uvicorn server setup: ✅ Completed
-* Dockerfile: ✅ Completed
-* Docker configuration files: ✅ Completed
-* GitHub project files: ✅ Updated
-* Cloud deployment: ⏳ Next stage
-
-Docker Containerization
+```text
+Real-time-financial-fraud-detection/
+│
+├── 01_EDA.ipynb
+│
+├── app.py
+├── fraud_detection_lgbm_model.pkl
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+├── .gitignore
+│
+└── README.md
 ```
+
+> `preprocessing_mappings.pkl` is required by the API but is not stored directly in GitHub because of its large file size.
+
+---
+
+## 🏗️ Current Architecture
+
+```text
+Financial Transaction Dataset
+            ↓
+     Data Cleaning & EDA
+            ↓
+     Feature Engineering
+            ↓
+     LightGBM Model
+            ↓
+     Model Evaluation
+            ↓
+       FastAPI API
+            ↓
+     Docker Container
+```
+
+---
+
+## 🔮 Future Enhancement: Real-Time Streaming
+
+The current implementation provides the **machine learning and API foundation** for a real-time fraud detection system.
+
+The next stage can extend the architecture using:
+
+```text
+Transaction Source
+       ↓
+Apache Kafka
+       ↓
+Spark Structured Streaming
+       ↓
+Fraud Detection Model
+       ↓
+Fraud Alerts
+       ↓
+Cassandra / Database
+       ↓
+Grafana / Power BI
+```
+
+### Planned technologies
+
+* **Apache Kafka** – transaction/event streaming
+* **Apache Spark Structured Streaming** – real-time processing
+* **Machine Learning** – fraud prediction
+* **Cassandra** – fraud alert storage
+* **Grafana** – real-time operational monitoring
+* **Power BI** – business-level fraud analysis and reporting
+
+These components represent the planned streaming extension and are **not part of the current completed implementation**.
+
+---
+
+## 🎯 Project Objective
+
+The objective of this project is to demonstrate an end-to-end machine learning workflow for financial fraud detection, from data preparation and model development to API-based prediction and deployment preparation.
+
+The project also provides a foundation that can be extended into a **Kafka + Spark real-time fraud detection architecture**.
+
+---
+
+## 💡 Key Skills Demonstrated
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* LightGBM
+* Exploratory Data Analysis
+* Feature Engineering
+* Imbalanced Classification
+* Machine Learning
+* FastAPI
+* REST API
+* Pydantic
+* Uvicorn
+* Docker
+* Git & GitHub
+* ML Model Deployment
+
+---
+
+## 📌 Project Status
+
+| Component                  | Status                |
+| -------------------------- | --------------------- |
+| Data Cleaning              | ✅ Completed           |
+| Exploratory Data Analysis  | ✅ Completed           |
+| Feature Engineering        | ✅ Completed           |
+| LightGBM Model             | ✅ Completed           |
+| Model Serialization        | ✅ Completed           |
+| FastAPI API                | ✅ Completed           |
+| API Testing                | ✅ Completed           |
+| Docker Configuration       | ✅ Completed           |
+| GitHub Documentation       | ✅ Completed           |
+| Kafka Streaming            | 🔮 Future Enhancement |
+| Spark Structured Streaming | 🔮 Future Enhancement |
+| Cassandra                  | 🔮 Future Enhancement |
+| Grafana                    | 🔮 Future Enhancement |
+
+---
+
+## 👩‍💻 Author
+
+**Ligi Mathew**
+
+Data Analytics | Python | SQL | Excel | Power BI | Machine Learning
+
+---
+
+### ⭐ Final Note
+
+This project demonstrates the complete **ML → API → deployment preparation** workflow and is designed as a foundation for extending into a production-style real-time financial fraud detection system using Kafka and Spark.
